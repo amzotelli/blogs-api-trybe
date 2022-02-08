@@ -1,13 +1,16 @@
-require('dotenv').config();
-const { Sequelize } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
+const { username, password, database, host, dialect } = require('../config/config');
 
 const sequelize = new Sequelize({
-  host: process.env.HOSTNAME,
-  username: process.env.MYSQL_USER,
-  password: process.env.MYSQL_PASSWORD,
-  database: 'blogs_api',
-  dialect: 'mysql'
+  username,
+  password,
+  database,
+  host,
+  dialect,
 });
+ 
+const usersModelBuilder = require('./users');
 
-
-module.exports = sequelize;
+const Users = usersModelBuilder(sequelize, DataTypes);
+  
+module.exports = { Users };
