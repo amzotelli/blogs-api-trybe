@@ -9,8 +9,10 @@ const sequelize = new Sequelize({
   dialect,
 });
  
-const usersModelBuilder = require('./users');
+const usersModelBuilder = require('./Users');
+const categoriesModelBuilder = require('./Categories');
 
 const Users = usersModelBuilder(sequelize, DataTypes);
+const Categories = categoriesModelBuilder(sequelize, DataTypes);
   
-module.exports = { Users };
+module.exports = { Users, Categories };
