@@ -1,6 +1,15 @@
 module.exports = (sequelize, DataTypes) => {
   sequelize.define('PostsCategories', {
-    postId: DataTypes.INTEGER,
-    categoryId: DataTypes.INTEGER,
+    postId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+    },
+    categoryId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+    },
+  },  
+  {
+    timestamps: false,
   });
 };

@@ -1,13 +1,9 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const { username, password, database, host, dialect } = require('../config/config');
+require('dotenv').config();
 
-const sequelize = new Sequelize({
-  username,
-  password,
-  database,
-  host,
-  dialect,
-});
+const { Sequelize, DataTypes } = require('sequelize');
+const { development } = require('../config/config');
+
+const sequelize = new Sequelize({ ...development });
  
 const usersModelBuilder = require('./Users');
 const categoriesModelBuilder = require('./Categories');
@@ -19,9 +15,9 @@ const Categories = categoriesModelBuilder(sequelize, DataTypes);
 const Posts = blogPostsModelBuilder(sequelize, DataTypes);
 const PostsCategories = postCategoriesModelBuilder(sequelize, DataTypes);
 
-Object.values(sequelize.models).forEach((model) => {
-  model.associate(sequelize.models);
-});
+// Object.values(sequelize.models).forEach((model) => {
+//   model.associate(sequelize.models);
+// });
   
 module.exports = {
   Users,
