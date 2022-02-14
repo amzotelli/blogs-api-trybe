@@ -11,9 +11,9 @@ module.exports = (sequelize, DataTypes) => {
       tableName: 'Users',
     });
   
-  // Users.findAllClean = () =>
-  //   Users.findAll().then((users) =>
-  //   users.map((user) => user.dataValues));
+  Users.findAllClean = () =>
+    Users.findAll().then((users) =>
+    users.map((user) => user.dataValues));
   
   // Users.associate = (models) => {
   //   Users.hasMany(models.BlogPosts, { foreignKey: 'userId', targetKey: 'id' });
