@@ -5,7 +5,7 @@ const User = require('../services/usersService');
 
 router.get('/', async (_req, res) => {
   try {
-    const users = await User.findAll();
+    const users = await User.getAll();
 
     return res.status(200).json(users);
   } catch (e) {
