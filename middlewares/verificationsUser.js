@@ -8,13 +8,20 @@ const verifyName = (req, res, next) => {
   next();
 };
 
-const verifyEmail = (req, res, next) => {
+function verifyEmail(req, res, next) {
   const { email } = req.body;
-  if (!email.includes('@') || !email.includes('.com') || email.length < 8) { 
-    return res.status(400).json({ message: '\'email\' must be a valid email' });
+  const regexEmail = /\S+@\S+\.\S+/; 
+  switch (email) {
+    case !email:
+      res.status(400).json({ message: '\'email\' is required' });
+      break;
+    case !regexEmail.test(email):
+      res.status(400).json({ message: '\'email\' must be a valid email' });
+      break;
+    default:
+      return next();
   }
-  next();
-};
+}
 
 module.exports = {
   verifyName,
