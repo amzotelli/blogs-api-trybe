@@ -9,8 +9,7 @@ router.get('/', async (_req, res) => {
 
     return res.status(200).json(users);
   } catch (e) {
-    console.log(e.message);
-    res.status(500).json({ message: 'Algo deu errado' });
+    res.status(500).json(e);
   }
 });
 
@@ -21,8 +20,7 @@ router.post('/', async (req, res) => {
 
     return res.status(201).json(newUser);
   } catch (e) {
-    console.log(e.message);
-    res.status(500).json({ message: 'Algo deu errado' });
+    res.status(500).json(e);
   }
 });
   
