@@ -2,13 +2,15 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const userController = require('./controllers/usersController');
-
 const app = express();
 
 app.use(bodyParser.json());
 
-app.use('/user', userController);
+const usersRouter = require('./routers/usersRouter');
+const errorMiddleware = require('./middlewares/errorMiddleware');
+
+app.use(errorMiddleware);
+app.use('/users', usersRouter);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 

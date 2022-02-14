@@ -15,9 +15,9 @@ const Categories = categoriesModelBuilder(sequelize, DataTypes);
 const Posts = blogPostsModelBuilder(sequelize, DataTypes);
 const PostsCategories = postCategoriesModelBuilder(sequelize, DataTypes);
 
-// Object.values(sequelize.models).forEach((model) => {
-//   model.associate(sequelize.models);
-// });
+Object.values(sequelize.models).forEach((model) => {
+  model.associate(sequelize.models);
+});
   
 module.exports = {
   Users,

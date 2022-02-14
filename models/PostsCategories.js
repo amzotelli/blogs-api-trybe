@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  sequelize.define('PostsCategories', {
+  const PostsCategories = sequelize.define('PostsCategories', {
     postId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
     underscored: true,
     tableName: 'PostsCategories',
-
-  });
+    });
+  
+  return PostsCategories;
 };
