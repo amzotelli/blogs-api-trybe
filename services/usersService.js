@@ -7,7 +7,10 @@ const create = async (displayName, email, password, image) => {
   return user.dataValues;
 };
 
+const findEmail = async (data) => Users.findOne({ where: { email: data.email } });
+
 module.exports = {
   getAll,
   create,
+  findEmail,
 };

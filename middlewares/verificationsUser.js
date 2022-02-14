@@ -1,3 +1,5 @@
+const User = require('../services/usersService');
+
 const verifyName = (req, res, next) => {
   const { displayName } = req.body;
   if (displayName.length < 8) {
@@ -32,8 +34,21 @@ const verifyPassword = (req, res, next) => {
   next();
 };
 
+const verifyIfExists = async (req, res, next) => {
+const { email } = req.body;
+console.log(email);
+try {
+  const user = await User.findEmail(email);
+  if (user) res.status(409).json({ message: 'User already registered' });
+} catch (e) {
+  res.status(500).json(e);
+}
+next();
+};
+
 module.exports = {
   verifyName,
   verifyEmail,
   verifyPassword,
+  verifyIfExists,
 };

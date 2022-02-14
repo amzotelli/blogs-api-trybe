@@ -10,7 +10,7 @@ const usersRouter = require('./routers/usersRouter');
 const errorMiddleware = require('./middlewares/errorMiddleware');
 
 app.use(errorMiddleware);
-app.use('/users', usersRouter);
+app.use('/user', usersRouter);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
