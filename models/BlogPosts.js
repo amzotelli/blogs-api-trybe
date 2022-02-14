@@ -9,12 +9,13 @@ module.exports = (sequelize, DataTypes) => {
     content: DataTypes.STRING,
     published: DataTypes.DATE,
     updated: DataTypes.DATE,
+    userId: DataTypes.INTEGER,
   },
     {
     timestamps: false,
   });
 
-  // Posts.associate = (models) => {
-  //   Posts.belongsTo(models.Users, { foreignKey: 'userId' });
-  // };
+  Posts.associate = (models) => {
+    Posts.belongsTo(models.Users, { foreignKey: 'userId' });
+  };
 };
