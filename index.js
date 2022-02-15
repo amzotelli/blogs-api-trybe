@@ -6,11 +6,13 @@ const app = express();
 
 app.use(bodyParser.json());
 
-const usersRouter = require('./routers/usersRouter');
 const errorMiddleware = require('./middlewares/errorMiddleware');
+const usersRouter = require('./routers/usersRouter');
+const loginRouter = require('./routers/loginRouter');
 
 app.use(errorMiddleware);
 app.use('/user', usersRouter);
+app.use('/login', loginRouter);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 

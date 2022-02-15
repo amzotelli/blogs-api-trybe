@@ -31,7 +31,6 @@ const verifyPassword = (req, res, next) => {
 
 const verifyIfExists = async (req, res, next) => {
 const { email } = req.body;
-console.log(email);
 try {
   const user = await User.findEmail(email);
   if (user) res.status(409).json({ message: 'User already registered' });
