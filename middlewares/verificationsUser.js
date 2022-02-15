@@ -1,5 +1,7 @@
 const User = require('../services/usersService');
 
+const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9G8';
+
 const verifyName = (req, res, next) => {
   const { displayName } = req.body;
   if (displayName.length < 8) {
@@ -40,9 +42,17 @@ try {
 next();
 };
 
+const verifyToken = (req, res, next) => {
+  const token = req.headers.authorization;
+  if (!token) return res.status(401).json({ message: 'Token not found' });
+  if (token !== authToken) return res.status(401).json({ message: 'Expired or invalid token' });
+  next();
+};
+  
 module.exports = {
   verifyName,
   verifyEmail,
   verifyPassword,
   verifyIfExists,
+  verifyToken,
 };

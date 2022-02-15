@@ -3,10 +3,7 @@ const User = require('../services/usersService');
 const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9G8';
 
 const getAll = async (req, res) => {
-  const token = req.headers.authorization;
-  if (!token) return res.status(401).json({ message: 'Token not found' });
-  if (token !== authToken) return res.status(401).json({ message: 'Expired or invalid token' });
-  try {
+    try {
     const users = await User.getAll();
     return res.status(200).json(users);
   } catch (e) {
@@ -22,7 +19,15 @@ const create = async (req, res) => {
   return res.status(201).json({ authToken });
 };
 
+const getById = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.getById(id);
+  if (!user) return res.status(404).json({ message: 'User does not exist' });
+  return res.status(200).json(user);
+};
+
 module.exports = {
   getAll,
   create,
+  getById,
 };

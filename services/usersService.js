@@ -9,8 +9,11 @@ const create = async (displayName, email, password, image) => {
 
 const findEmail = async (data) => Users.findOne({ where: { email: data } });
 
+const getById = async (id) => Users.findByPk(id);
+
 module.exports = {
   getAll,
   create,
   findEmail,
+  getById,
 };
