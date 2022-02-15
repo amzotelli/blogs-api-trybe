@@ -1,5 +1,3 @@
-const User = require('../services/loginService');
-
 function verifyEmail(req, res, next) {
   const { email } = req.body;
   if (email === undefined) res.status(400).json({ message: '"email" is required' });
