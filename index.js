@@ -9,10 +9,12 @@ app.use(bodyParser.json());
 const errorMiddleware = require('./middlewares/errorMiddleware');
 const usersRouter = require('./routers/usersRouter');
 const loginRouter = require('./routers/loginRouter');
+const categoriesRouter = require('./routers/categoriesRouter');
 
 app.use(errorMiddleware);
 app.use('/user', usersRouter);
 app.use('/login', loginRouter);
+app.use('/categories', categoriesRouter);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
