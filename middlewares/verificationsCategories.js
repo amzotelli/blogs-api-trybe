@@ -2,7 +2,7 @@ const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9G8';
 
 const verifyName = (req, res, next) => {
   const { name } = req.body;
-  if (!name) res.status(400).json({ message: '"name" is required' });
+  if (!name) return res.status(400).json({ message: '"name" is required' });
     next();
 };
 

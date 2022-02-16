@@ -7,6 +7,6 @@ const Categories = require('../controllers/categoriesController');
 const { verifyName, verifyToken } = require('../middlewares/verificationsCategories');
 
 router
-  .post('/', verifyName, verifyToken, Categories.create);
+  .post('/', verifyToken, verifyName, Categories.create);
 
   module.exports = router;

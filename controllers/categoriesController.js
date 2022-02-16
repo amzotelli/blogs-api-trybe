@@ -2,9 +2,8 @@ const Categories = require('../services/categoriesService');
 
 const create = async (req, res) => {
   try {
-    const { id, name } = await Categories.create(req.body.name);
-    console.log(req.body.name);
-    return res.status(201).json({ id, name });
+    const category = await Categories.create(req.body.name);
+    return res.status(201).json(category);
   } catch (error) {
     return res.status(400).json({ message: error.message });
   }
