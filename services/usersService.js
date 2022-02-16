@@ -1,15 +1,15 @@
-const { Users } = require('../models');
+const { User } = require('../models');
 
-const getAll = async () => Users.findAllClean();
+const getAll = async () => User.findAllClean();
 
 const create = async (user) => {
-  const alreadyExists = await Users.findOne({ where: { email: user.email } });
+  const alreadyExists = await User.findOne({ where: { email: user.email } });
   if (alreadyExists) return { status: true, message: 'User already registered' };
-  const newUser = await Users.create(user);
+  const newUser = await User.create(user);
   return newUser;
 };
 
-const getById = async (id) => Users.findByPk(id);
+const getById = async (id) => User.findByPk(id);
 
 module.exports = {
   getAll,

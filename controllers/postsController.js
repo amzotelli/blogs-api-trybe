@@ -10,8 +10,9 @@ const getAll = async (req, res) => {
 };
 
 const create = async (req, res) => {
+  const { title, content, categoryIds } = req.body;
   const userId = req.user.id;
-  const post = await Post.create(req.body);
+  const post = await Post.create({ title, content, categoryIds, userId });
   if (post.status) return res.status(409).json({ message: post.message });
   return res.status(201).json({ id: post.id, userId, title: post.title, content: post.content });
 };

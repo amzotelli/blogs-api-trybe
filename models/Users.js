@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Users = sequelize.define('Users', {
+  const User = sequelize.define('User', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     displayName: DataTypes.STRING,
     email: DataTypes.STRING,
@@ -11,13 +11,13 @@ module.exports = (sequelize, DataTypes) => {
       tableName: 'Users',
     });
   
-  Users.findAllClean = () =>
-    Users.findAll().then((users) =>
-    users.map((user) => user.dataValues));
+  User.findAllClean = () =>
+    User.findAll().then((user) =>
+    user.map((users) => users.dataValues));
   
-  // Users.associate = (models) => {
-  //   Users.hasMany(models.BlogPosts, { foreignKey: 'userId', as: 'BlogPosts' });
-  // };
+  User.associate = (models) => {
+    User.hasMany(models.BlogPost, { foreignKey: 'userId', as: 'users' });
+  };
 
-  return Users;
+  return User;
 };
