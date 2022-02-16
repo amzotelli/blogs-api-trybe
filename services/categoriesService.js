@@ -7,7 +7,10 @@ const create = async (name) => {
 
 const getAll = async () => Categories.findAll();
 
+const getById = async (id) => Categories.findByPk(id);
+
 module.exports = {
   create,
   getAll,
+  getById,
 };
