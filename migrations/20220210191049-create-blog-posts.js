@@ -8,9 +8,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      userId: {
-        type: Sequelize.INTEGER
-      },
       title: {
         type: Sequelize.STRING
       },
@@ -22,6 +19,17 @@ module.exports = {
       },
       updated: {
         type: Sequelize.DATE
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        field: 'userId',
+        references: {
+          model: 'Users',
+          key: 'id',
+        },
       },
     });
   },
