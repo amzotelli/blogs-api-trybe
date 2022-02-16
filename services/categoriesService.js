@@ -1,13 +1,13 @@
-const { Categories } = require('../models');
+const { Category } = require('../models');
 
 const create = async (name) => {
-  const category = await Categories.create({ name });
+  const category = await Category.create({ name });
   return category;
 };
 
-const getAll = async () => Categories.findAll();
+const getAll = async () => Category.findAll();
 
-const getById = async (id) => Categories.findByPk(id);
+const getById = async (id) => Category.findByPk(id);
 
 module.exports = {
   create,
