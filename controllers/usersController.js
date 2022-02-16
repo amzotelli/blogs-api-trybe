@@ -12,10 +12,8 @@ const getAll = async (req, res) => {
 };
 
 const create = async (req, res) => {
-  const { displayName, email, password, image } = req.body;
-  const alreadyExists = await User.findEmail(email);
-  if (alreadyExists) return res.status(409).json({ message: 'User already registered' });
-  await User.create({ displayName, email, password, image });
+  const user = await User.create(req.body);
+  if (user.status) return res.status(409).json({ message: user.message });
   return res.status(201).json({ authToken });
 };
 
