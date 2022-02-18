@@ -11,10 +11,11 @@ const getAll = async (req, res) => {
 
 const create = async (req, res) => {
   const { title, content, categoryIds } = req.body;
-  const userId = req.user.id;
-  const post = await Post.create({ title, content, categoryIds, userId });
+  // const verifyIfExists = categoryIds.map((categoryId) => categoryId)
+  const post = await Post.create({ title, content, categoryIds });
   if (post.status) return res.status(409).json({ message: post.message });
-  return res.status(201).json({ id: post.id, userId, title: post.title, content: post.content });
+  return res.status(201)
+    .json({ id: post.id, userId: post.userId, title: post.title, content: post.content });
 };
 
 module.exports = {

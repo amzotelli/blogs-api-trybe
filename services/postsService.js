@@ -1,9 +1,9 @@
-const { BlogPosts } = require('../models/BlogPosts');
+const { BlogPost } = require('../models');
 
-const getAll = async () => BlogPosts.findAll();
+const getAll = async () => BlogPost.findAll();
 
-const create = async (post) => {
-  const newPost = await BlogPosts.create(post);
+const create = async ({ title, content, categoryIds, published, updated }) => {
+  const newPost = await BlogPost.create({ title, content, categoryIds, published, updated });
   return newPost;
 };
 
