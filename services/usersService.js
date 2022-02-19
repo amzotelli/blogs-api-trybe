@@ -9,10 +9,33 @@ const create = async (user) => {
   return newUser;
 };
 
-const getById = async (id) => User.findByPk(id);
+const getById = async (id) => {
+  const user = User.findByPk(id);
+  if (!user) {
+    const error = new Error();
+    error.message = 'User not found';
+    error.code = 'NotFound';
+    throw error;
+  }
+  return user.dataValues;
+};
+
+const getByEmail = async (email) => {
+  const user = await User.findOne({
+    attributes: { exclude: ['password'] }, where: { email },
+  });
+  if (!user) {
+    const error = new Error();
+    error.message = 'User not found';
+    error.code = 'NotFound';
+    throw error;
+  }
+  return user.dataValues;
+};
 
 module.exports = {
   getAll,
   create,
   getById,
+  getByEmail,
 };
