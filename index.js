@@ -6,16 +6,14 @@ const app = express();
 
 app.use(bodyParser.json());
 
-const authVerification = require('./middlewares/authMiddleware');
 const errorMiddleware = require('./middlewares/errorMiddleware');
 const usersRouter = require('./routers/usersRouter');
 const loginRouter = require('./routers/loginRouter');
 const categoriesRouter = require('./routers/categoriesRouter');
 const postsRouter = require('./routers/postsRouter');
 
-app.use(authVerification);
-app.use('/user', usersRouter);
 app.use('/login', loginRouter);
+app.use('/user', usersRouter);
 app.use('/categories', categoriesRouter);
 app.use('/post', postsRouter);
 

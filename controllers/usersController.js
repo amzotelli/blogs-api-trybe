@@ -1,7 +1,5 @@
 const User = require('../services/usersService');
 
-const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9G8';
-
 const getAll = async (req, res) => {
     try {
     const users = await User.getAll();
@@ -12,9 +10,9 @@ const getAll = async (req, res) => {
 };
 
 const create = async (req, res) => {
-  const user = await User.create(req.body);
-  if (user.status) return res.status(409).json({ message: user.message });
-  return res.status(201).json({ authToken });
+  const { code, message, token } = await User.create(req.body);
+  if (code) return res.status(code).json({ message });
+  return res.status(201).json({ token });
 };
 
 const getById = async (req, res) => {
@@ -25,10 +23,14 @@ const getById = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const { email, password } = req.body;
-  const user = await User.login({ email, password });
-  if (user.status) return res.status(400).json({ message: user.message });
-  return res.status(200).json({ token });
+  try {
+    const { email } = req.body;
+    const { code, message, token } = await User.login(email);
+    if (code) return res.status(code).json({ message });
+    return res.status(200).json({ token });
+  } catch (e) {
+    return res.status(500).json({ message: e.message });
+  }
 };
 
 module.exports = {
