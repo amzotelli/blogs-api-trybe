@@ -1,4 +1,4 @@
-const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9G8';
+const authentication = require('./authMiddleware');
 
 const verifyInputs = (req, res, next) => {
   const { title, categoryIds, content } = req.body;
@@ -10,8 +10,12 @@ const verifyInputs = (req, res, next) => {
 
 const verifyToken = (req, res, next) => {
   const token = req.headers.authorization;
-  if (token === undefined) return res.status(401).json({ message: 'Token not found' });
-  if (token !== authToken) return res.status(401).json({ message: 'Expired or invalid token' });
+  if (!token) return res.status(401).json({ message: 'Token not found' });
+  try {
+    authentication(token);
+  } catch (e) {
+    return res.status(401).json({ message: 'Expired or invalid token' });
+  }
   next();
 };
 

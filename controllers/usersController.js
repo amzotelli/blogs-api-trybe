@@ -10,9 +10,13 @@ const getAll = async (req, res) => {
 };
 
 const create = async (req, res) => {
+  try {
   const { code, message, token } = await User.create(req.body);
   if (code) return res.status(code).json({ message });
   return res.status(201).json({ token });
+  } catch (e) {
+    res.status(500).json(e);
+  }
 };
 
 const getById = async (req, res) => {

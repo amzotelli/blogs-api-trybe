@@ -12,8 +12,8 @@ const loginRouter = require('./routers/loginRouter');
 const categoriesRouter = require('./routers/categoriesRouter');
 const postsRouter = require('./routers/postsRouter');
 
-app.use('/login', loginRouter);
 app.use('/user', usersRouter);
+app.use('/login', loginRouter);
 app.use('/categories', categoriesRouter);
 app.use('/post', postsRouter);
 
