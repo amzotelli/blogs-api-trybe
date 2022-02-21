@@ -8,7 +8,7 @@ const authenticate = async (token) => {
   return userId;
 };
 
-const getAll = async () => BlogPost.findAll();
+const getAll = async () => BlogPost.findAllClean();
 
 const create = async ({ id, title, content, userId, published = new Date(),
   updated = new Date() }) => {
