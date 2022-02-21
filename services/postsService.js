@@ -11,8 +11,8 @@ const authenticate = async (token) => {
 const getAll = async () => {
   const posts = await BlogPost.findAll({
     include: [
-      { model: User, as: 'Users' },
-      { model: Category, as: 'Categories' },
+      { model: User, as: 'user' },
+      { model: Category, as: 'categories', through: { attributes: [] } },
     ],
   });
   return posts;
