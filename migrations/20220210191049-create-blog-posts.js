@@ -14,12 +14,6 @@ module.exports = {
       content: {
         type: Sequelize.STRING
       },
-      published: {
-        type: Sequelize.DATE
-      },
-      updated: {
-        type: Sequelize.DATE
-      },
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -30,6 +24,12 @@ module.exports = {
           model: 'Users',
           key: 'id',
         },
+      },
+      published: {
+        type: Sequelize.DATE
+      },
+      updated: {
+        type: Sequelize.DATE
       },
     });
   },

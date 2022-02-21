@@ -1,6 +1,7 @@
 const Post = require('../services/postsService');
+const Category = require('../services/categoriesService');
 
-const getAll = async (req, res) => {
+const getAll = async (_req, res) => {
   try {
     const posts = await Post.getAll();
     return res.status(200).json(posts);
@@ -10,13 +11,15 @@ const getAll = async (req, res) => {
 };
 
 const create = async (req, res) => {
-  // const userId = req.user.id;
-  const { title, content, categoryIds } = req.body;
-  // const verifyIfExists = categoryIds.map((categoryId) => categoryId)
-  const post = await Post.create({ title, content, categoryIds });
-  if (post.status) return res.status(409).json({ message: post.message });
-  return res.status(201)
-    .json({ id: post.id, userId: post.userId, title: post.title, content: post.content });
+  const { title, content, categoryIds } = req.body;  
+  const token = req.headers.authorization;
+  const userId = await Post.authenticate(token);
+
+  const verifyIfCategoryExists = await Category.getById(categoryIds);
+  if (!verifyIfCategoryExists) return res.status(400).json({ message: '"categoryIds" not found' });
+
+  const post = await Post.create({ title, content, userId });
+  return res.status(201).json({ ...post });
 };
 
 module.exports = {

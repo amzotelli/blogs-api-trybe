@@ -7,7 +7,11 @@ const create = async (name) => {
 
 const getAll = async () => Category.findAll();
 
-const getById = async (id) => Category.findByPk(id);
+const getById = async (id) => {
+  const mappedCategories = id.map(async (i) => Category.findByPk(i));
+  const categories = await Promise.all(mappedCategories);
+  return categories.every((c) => c);
+};
 
 module.exports = {
   create,

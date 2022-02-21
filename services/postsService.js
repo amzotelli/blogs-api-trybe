@@ -1,17 +1,23 @@
 const { BlogPost } = require('../models');
+const User = require('./usersService');
+const authentication = require('../middlewares/authMiddleware');
 
-const Category = require('../controllers/categoriesController');
+const authenticate = async (token) => {
+  const { email } = authentication(token);
+  const { id: userId } = await User.getByEmail(email);
+  return userId;
+};
 
 const getAll = async () => BlogPost.findAll();
 
-const create = async (post) => {
-  const categoryExists = await Category.getById(post.categoryIds);
-  if (!categoryExists) return { code: 400, message: '"categoryIds" not found' };
-  const newPost = await BlogPost.create(post);
-  return newPost;
+const create = async ({ id, title, content, userId, published = new Date(),
+  updated = new Date() }) => {
+  const newPost = await BlogPost.create({ id, title, content, userId, published, updated });
+  return newPost.dataValues;
 };
 
 module.exports = {
+  authenticate,
   getAll,
   create,
 };
