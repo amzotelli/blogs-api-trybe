@@ -10,11 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false, tableName: 'BlogPosts',
   });
 
-  BlogPost.findAllClean = () =>
-  BlogPost.findAll().then((post) =>
-  post.map((posts) => posts.dataValues));
-
-  BlogPost.associate = (models) => {
+ BlogPost.associate = (models) => {
     BlogPost.belongsTo(models.User, { foreignKey: 'userId', as: 'Users' });
   };
 

@@ -1,14 +1,22 @@
-const { BlogPost } = require('../models');
-const User = require('./usersService');
+const { BlogPost, User, Category } = require('../models');
+const UserService = require('./usersService');
 const authentication = require('../middlewares/authMiddleware');
 
 const authenticate = async (token) => {
   const { email } = authentication(token);
-  const { id: userId } = await User.getByEmail(email);
+  const { id: userId } = await UserService.getByEmail(email);
   return userId;
 };
 
-const getAll = async () => BlogPost.findAllClean();
+const getAll = async () => {
+  const posts = await BlogPost.findAll({
+    include: [
+      { model: User, as: 'Users' },
+      { model: Category, as: 'Categories' },
+    ],
+  });
+  return posts;
+};
 
 const create = async ({ id, title, content, userId, published = new Date(),
   updated = new Date() }) => {
