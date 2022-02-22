@@ -11,7 +11,7 @@ const authenticate = async (token) => {
 const getAll = async () => {
   const posts = await BlogPost.findAll({
     include: [
-      { model: User, as: 'user' },
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
       { model: Category, as: 'categories', through: { attributes: [] } },
     ],
   });
@@ -48,6 +48,13 @@ const update = async ({ id, title, content, updated = new Date() }) => {
 
 const deleteById = async (id) => BlogPost.destroy({ where: { id } });
 
+const search = async (query) => {
+  const allPosts = await getAll()
+    .then((posts) => posts.filter((post) => post.title.toLowerCase().includes(query.toLowerCase())
+      || post.content.toLowerCase().includes(query.toLowerCase())));
+  return allPosts;
+};
+    
 module.exports = {
   authenticate,
   getAll,
@@ -55,4 +62,5 @@ module.exports = {
   getById,
   update,
   deleteById,
+  search,
 };
