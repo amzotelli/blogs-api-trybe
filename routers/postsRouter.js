@@ -10,6 +10,7 @@ router
   .post('/', verifyInputs, verifyToken, Post.create)
   .get('/', verifyToken, Post.getAll)
   .get('/:id', verifyToken, Post.getById)
-  .put('/:id', verifyUpdate, verifyToken, Post.update);
+  .put('/:id', verifyUpdate, verifyToken, Post.update)
+  .delete('/:id', verifyToken, Post.deleteById);
 
   module.exports = router;

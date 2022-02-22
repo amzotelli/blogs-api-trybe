@@ -46,10 +46,13 @@ const update = async ({ id, title, content, updated = new Date() }) => {
   return post;
 };
 
+const deleteById = async (id) => BlogPost.destroy({ where: { id } });
+
 module.exports = {
   authenticate,
   getAll,
   create,
   getById,
   update,
+  deleteById,
 };

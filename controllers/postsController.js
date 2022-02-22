@@ -42,9 +42,22 @@ const update = async (req, res) => {
   return res.status(200).json(postUpdate);
 };
 
+const deleteById = async (req, res) => {
+  const { id } = req.params;
+  const token = req.headers.authorization;
+  const userId = await Post.authenticate(token);
+  
+  const post = await Post.getById(id);
+  if (!post) return res.status(404).json({ message: 'Post does not exist' });
+  if (userId !== post.userId) return res.status(401).json({ message: 'Unauthorized user' });
+
+  return res.status(204).end();
+};
+
 module.exports = {
   getAll,
   create,
   getById,
   update,
+  deleteById,
 };
