@@ -10,6 +10,7 @@ const { verifyName, verifyEmail, verifyPassword,
 router
   .get('/', verifyToken, User.getAll)
   .post('/', verifyName, verifyEmail, verifyPassword, User.create)
-  .get('/:id', verifyToken, User.getById);
+  .get('/:id', verifyToken, User.getById)
+  .delete('/me', verifyToken, User.remove);
 
 module.exports = router;

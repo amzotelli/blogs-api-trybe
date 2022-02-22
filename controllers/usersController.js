@@ -1,4 +1,5 @@
 const User = require('../services/usersService');
+const authentication = require('../middlewares/authMiddleware');
 
 const getAll = async (req, res) => {
     try {
@@ -37,9 +38,18 @@ const login = async (req, res) => {
   }
 };
 
+const remove = async (req, res) => {
+  const token = req.headers.authorization;
+  const { email } = authentication(token);
+  const user = await User.getByEmail(email);
+  await User.remove(user.id);
+  return res.status(204).end();
+};
+
 module.exports = {
   getAll,
   create,
   getById,
   login,
+  remove,
 };
