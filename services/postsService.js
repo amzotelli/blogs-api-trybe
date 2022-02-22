@@ -24,8 +24,20 @@ const create = async ({ id, title, content, userId, published = new Date(),
   return newPost.dataValues;
 };
 
+const getById = async (id) => {
+  const post = await BlogPost.findOne({
+    where: { id },
+    include: [
+      { model: User, as: 'user' },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  return post;
+};
+
 module.exports = {
   authenticate,
   getAll,
   create,
+  getById,
 };
